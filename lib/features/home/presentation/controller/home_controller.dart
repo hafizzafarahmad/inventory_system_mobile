@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory_system/common/model/menu_model.dart';
 
+import '../../../../core/route/route_constant.dart';
+
 class HomeController extends GetxController {
 
   int jmlBarang = 75;
@@ -18,6 +20,19 @@ class HomeController extends GetxController {
       MenuModel(key: 'transaksi', name: 'Transaksi Barang', id: '3', icon: Icons.production_quantity_limits_outlined),
     ]);
     update();
+  }
+
+  goToMenu(String key){
+    switch (key) {
+      case "user":
+        return Get.toNamed(RouteConstant.user);
+      case "barang":
+        return Get.toNamed(RouteConstant.user);
+      case "transaksi":
+        return Get.toNamed(RouteConstant.user);
+      default:
+        return null;
+    }
   }
 
   @override

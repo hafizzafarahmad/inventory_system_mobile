@@ -4,4 +4,8 @@ class ApiEndPoint {
 
   ///DEV
   static const login = '/auth/login';
+  static const user = '/user';
+
+  ///OPSI
+  static const opsiRole = '/role';
 }

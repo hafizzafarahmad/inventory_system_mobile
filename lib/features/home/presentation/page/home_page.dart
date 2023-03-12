@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           Expanded(
                                             flex: 3,
-                                            child: Container(
+                                            child: SizedBox(
                                               height: SizeApps.height(context, size: 0.09),
                                               child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           Expanded(
                                             flex: 3,
-                                            child: Container(
+                                            child: SizedBox(
                                               height: SizeApps.height(context, size: 0.09),
                                               child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -220,7 +220,7 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           Expanded(
                                             flex: 3,
-                                            child: Container(
+                                            child: SizedBox(
                                               height: SizeApps.height(context, size: 0.09),
                                               child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -283,9 +283,9 @@ class _HomePageState extends State<HomePage> {
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(15.0),
                                   onTap: (){
-
+                                    controller.goToMenu(controller.menu[index].key);
                                   },
-                                  child: Container(
+                                  child: SizedBox(
                                       width: SizeApps.width(context, size: 0.27),
                                       height: SizeApps.width(context, size: 0.27),
                                       child:  Column(
