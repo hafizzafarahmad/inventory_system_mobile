@@ -52,8 +52,8 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
-                                      height: SizeApps.width(context, size: 0.08),
-                                      width: SizeApps.width(context, size: 0.08),
+                                      height: SizeApps.width(context, size: 0.1),
+                                      width: SizeApps.width(context, size: 0.1),
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.circular(100.0),
                                           child: Image.asset(
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: SizeApps.width(context, size: 0.025)
+                                              fontSize: SizeApps.width(context, size: 0.04)
                                           ),
                                         ),
                                         Text(
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: SizeApps.width(context, size: 0.025)
+                                              fontSize: SizeApps.width(context, size: 0.03)
                                           ),
                                         ),
                                       ],
@@ -91,13 +91,13 @@ class _HomePageState extends State<HomePage> {
                               InkWell(
                                 onTap: (){
                                   dialogToConfirm(context, message: 'Logout', onTap: (){
-                                    Get.offAllNamed(RouteConstant.login);
+                                    controller.logout();
                                   });
                                 },
                                 child: Icon(
                                   Icons.logout,
                                   color: Colors.white,
-                                  size: SizeApps.width(context, size: 0.045),
+                                  size: SizeApps.width(context, size: 0.05),
                                 ),
                               )
                             ],
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: SizeApps.width(context, size: 0.025),
+                                                        fontSize: SizeApps.width(context, size: 0.028),
                                                         fontWeight: FontWeight.bold
                                                     ),
                                                   ),
@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: SizeApps.width(context, size: 0.025),
+                                                        fontSize: SizeApps.width(context, size: 0.028),
                                                         fontWeight: FontWeight.bold
                                                     ),
                                                   ),
@@ -231,7 +231,7 @@ class _HomePageState extends State<HomePage> {
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: SizeApps.width(context, size: 0.025),
+                                                        fontSize: SizeApps.width(context, size: 0.028),
                                                         fontWeight: FontWeight.bold
                                                     ),
                                                   ),
@@ -268,49 +268,64 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15)
                       ),
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        children: List.generate(
-                          controller.menu.length, (index){
-                            return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 5),
-                              child: Card(
-                                elevation: 2,
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0)
-                                ),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  onTap: (){
-                                    controller.goToMenu(controller.menu[index].key);
-                                  },
-                                  child: SizedBox(
-                                      width: SizeApps.width(context, size: 0.27),
-                                      height: SizeApps.width(context, size: 0.27),
-                                      child:  Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Icon(controller.menu[index].icon, size:
-                                          SizeApps.width(context, size: 0.14), color: Colors.black38,),
-                                          Text(
-                                            controller.menu[index].name,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: SizeApps.width(context, size: 0.0265),
-                                              color: Colors.black,
-                                            ),
-                                          )
-                                        ],
+                      child:
+                      GridView.builder(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 1),
+                        itemBuilder: (_, index) => Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: InkWell(
+                            onTap: () {
+                              controller.goToMenu(controller.menu[index].key);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                      flex: 8,
+                                      child: Container(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Icon(
+                                          controller.menu[index].icon,
+                                          color: controller.color[index],
+                                          size: SizeApps.width(context, size: 0.2),
+                                        ),
                                       )
                                   ),
-                                ),
+                                  Expanded(
+                                      flex: 4,
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          controller.menu[index].name,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: SizeApps.width(context, size: 0.037),
+                                          ),
+                                        ),
+                                      )
+                                  )
+                                ],
                               ),
-                            );
-                          }
+                            ),
+                          ),
                         ),
-                      ),
+                        itemCount: controller.menu.length,
+                      )
+
+
                     ),
                   ],
                 )

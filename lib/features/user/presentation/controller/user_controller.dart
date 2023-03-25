@@ -5,7 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:inventory_system/common/model/opsi_role_model.dart';
-import 'package:inventory_system/features/user/domain/model/user_model.dart';
+import 'package:inventory_system/features/user/data/model/user_model.dart';
 import 'package:inventory_system/features/user/domain/params/user_params.dart';
 import 'package:inventory_system/features/user/domain/repository/user_repository.dart';
 import '../../../../common/widgets/snackbar/app_snackbar.dart';

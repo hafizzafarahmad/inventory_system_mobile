@@ -56,7 +56,7 @@ class _CustomTextFieldState extends State<CustomCurrencyTextField> {
   @override
   void initState() {
     if(widget.controller != null && widget.controller!.text.isNotEmpty) {
-      var val = _formatNumber(widget.controller!.text.replaceAll('', ''));
+      var val = _formatNumber(widget.controller!.text.replaceAll('.', ''));
       widget.controller!.value = TextEditingValue(
         text: val,
         selection: TextSelection.collapsed(offset: val.length),

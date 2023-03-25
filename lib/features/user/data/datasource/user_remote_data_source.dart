@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:inventory_system/common/model/base_model.dart';
 import 'package:inventory_system/core/network/api_endpoint.dart';
-import 'package:inventory_system/features/user/domain/model/user_model.dart';
+import 'package:inventory_system/features/user/data/model/user_model.dart';
 import 'package:inventory_system/features/user/domain/params/user_params.dart';
 import '../../../../core/network/app_network.dart';
 class UserRemoteDataSource {

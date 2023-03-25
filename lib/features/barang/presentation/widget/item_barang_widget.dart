@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:inventory_system/core/helper/format_currency.dart';
+import 'package:inventory_system/features/barang/data/model/barang_model.dart';
+import 'package:inventory_system/features/barang/presentation/controller/barang_controller.dart';
 import 'package:inventory_system/features/user/data/model/user_model.dart';
 import 'package:inventory_system/features/user/presentation/controller/user_controller.dart';
 
 import '../../../../core/style/app_color.dart';
 import '../../../../core/style/shimmerline.dart';
 
-class ItemUserWidget extends StatelessWidget{
+class ItemBarangWidget extends StatelessWidget{
   final int index;
-  final UserData data;
-  final UserController controller;
+  final BarangData data;
+  final BarangController controller;
 
-  const ItemUserWidget({Key? key, required this.index, required this.data, required this.controller
+  const ItemBarangWidget({Key? key, required this.index, required this.data, required this.controller
   }) : super(key: key);
 
   @override
@@ -29,7 +32,7 @@ class ItemUserWidget extends StatelessWidget{
                   // border: Border.all(color: Colors.black38),
                   color: AppColor.textFieldFilled
               ),
-              child: const Icon(Icons.person_outline, size: 40, color: AppColor.thirdColor40,),
+              child: const Icon(Icons.image_outlined, size: 30, color: AppColor.thirdColor40,),
             ),
            const SizedBox(width: 15,),
            Expanded(
@@ -43,33 +46,8 @@ class ItemUserWidget extends StatelessWidget{
                        child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: [
-                           Wrap(
-                             alignment: WrapAlignment.center,
-                             children: List.generate(data.roles?.length ?? 0, (index){
-                               return  Container(
-                                   margin: const EdgeInsets.only(bottom: 5),
-                                   width: 70,
-                                   padding: const EdgeInsets.symmetric( vertical: 1),
-                                   decoration: BoxDecoration(
-                                     borderRadius: BorderRadius.circular(5),
-                                     color: Colors.green,
-                                   ),
-                                   child: Center(child: Text(
-                                     data.roles![index].displayName!,
-                                     style: const TextStyle(
-                                         fontSize: 12,
-                                         color: Colors.white,
-                                         fontFamily: 'PoppinsMedium'
-                                     ),
-                                     textAlign: TextAlign.center,
-                                   ),)
-                               );
-                             }
-                             ),
-                           ),
                            Text(
-                             '${data.firstName} ${data.lastName}',
-                             maxLines: 2,
+                             '${data.itemName}',
                              overflow: TextOverflow.ellipsis,
                              style: const TextStyle(
                                  fontSize: 14,
@@ -77,12 +55,25 @@ class ItemUserWidget extends StatelessWidget{
                              ),
                            ),
                            const SizedBox(height: 3,),
-                           Text(
-                             '${data.email}',
-                             style: const TextStyle(
-                               fontSize: 11,
-                             ),
-                           ),
+                           Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+                               Text(
+                                 '${formattedCurrency(data.price?.split(".").first)}/${data.uom}',
+                                 style: const TextStyle(
+                                   fontSize: 11,
+                                 ),
+                               ),
+                               Text(
+                                 'Stok: ${formattedCurrency(data.quantity?.split(".").first)}',
+                                 style: const TextStyle(
+                                   fontSize: 12,
+                                   fontWeight: FontWeight.bold,
+                                   color: Colors.deepOrange
+                                 ),
+                               ),
+                             ],
+                           )
                          ],
                        )
                      ),
@@ -143,7 +134,7 @@ class ItemUserWidget extends StatelessWidget{
                            if(value == 0){
 
                            } else if (value == 1){
-                             controller.selectedUserData = data;
+                             controller.selectedBarangData = data;
                              controller.goToUpdateUser();
                            } else {
                              controller.deleteUser(id: data.id.toString());

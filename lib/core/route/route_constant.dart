@@ -5,4 +5,7 @@ class RouteConstant {
   static const home = '/home';
   static const user = '/user';
   static const addUser = '/addUser';
+  static const addBarang = '/addBarang';
+  static const barang = '/barang';
+  static const transaksi = '/transaksi';
 }
