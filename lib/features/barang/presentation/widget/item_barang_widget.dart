@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_system/core/helper/format_currency.dart';
+import 'package:inventory_system/core/network/api_endpoint.dart';
 import 'package:inventory_system/features/barang/data/model/barang_model.dart';
 import 'package:inventory_system/features/barang/presentation/controller/barang_controller.dart';
 import 'package:inventory_system/features/user/data/model/user_model.dart';
@@ -23,16 +25,33 @@ class ItemBarangWidget extends StatelessWidget{
       children: [
         Row(
           children: [
-            Container(
-              alignment: Alignment.center,
-              height: 70,
-              width: 70,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  // border: Border.all(color: Colors.black38),
-                  color: AppColor.textFieldFilled
-              ),
-              child: const Icon(Icons.image_outlined, size: 30, color: AppColor.thirdColor40,),
+            ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+              child: CachedNetworkImage(
+                  height: 60,
+                  width: 60,
+                  imageUrl: 'http://192.168.18.16:8000/images/item${data.pictureName!}',
+                  fit: BoxFit.fill,
+                  alignment: Alignment.center,
+                  httpHeaders: {
+                    "Authorization": "Bearer ${controller.token}",
+                    "Content-Type": "image/*"
+                  },
+                  placeholder: (context, url) =>
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: AppColor.textFieldFilled
+                        ),
+                        child: const Icon(Icons.image_outlined, size: 30, color: AppColor.thirdColor40,),
+                      ),
+                  errorWidget: (context, url, error) {
+                    return Container(
+                      decoration: const BoxDecoration(
+                        color: AppColor.textFieldFilled
+                      ),
+                      child: const Icon(Icons.image_outlined, size: 30, color: AppColor.thirdColor40,),
+                    );
+                  })
             ),
            const SizedBox(width: 15,),
            Expanded(
@@ -65,7 +84,7 @@ class ItemBarangWidget extends StatelessWidget{
                                  ),
                                ),
                                Text(
-                                 'Stok: ${formattedCurrency(data.quantity?.split(".").first)}',
+                                 'Stok: ${formattedCurrency(data.iStock!.quantity?.split(".").first)}',
                                  style: const TextStyle(
                                    fontSize: 12,
                                    fontWeight: FontWeight.bold,

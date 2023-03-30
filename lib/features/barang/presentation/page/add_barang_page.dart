@@ -338,7 +338,7 @@ class _AddBarangPageState extends State<AddBarangPage> {
                             controller.uploadChoice(context);
                           },
                           child: SizedBox(
-                            height: 171,
+                            height: 200,
                             width: double.infinity,
                             child: controller.image != null ?
                             ClipRRect(

@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Admin',
+                                          controller.name ?? '-',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               color: Colors.white,
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
                                         Text(
-                                          'F12023',
+                                          controller.email ?? '-',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               color: Colors.white,

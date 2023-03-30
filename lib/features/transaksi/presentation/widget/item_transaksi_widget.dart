@@ -42,13 +42,26 @@ class ItemTransaksiWidget extends StatelessWidget{
           ],
         ),
         const SizedBox(height: 5,),
-        Text(
-          '${data.itemName}',
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${data.itemName}',
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            Text(
+              'Sisa Stok: ${formattedCurrency(data.quantity?.toString())}',
+              style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepOrange
+              ),
+            ),
+          ],
         ),
 
         const SizedBox(height: 5,),

@@ -56,7 +56,9 @@ class AuthController extends GetxController {
           LoginParams(username: emailController.text, password: passwordController.text));
 
       if ((res.code == "200")) {
-        storage.write(key: "token", value: res.results!.user!.token);
+        storage.write(key: LocalDataConstant.token, value: res.results!.user!.token);
+        storage.write(key: LocalDataConstant.name, value: res.results!.user!.firstName);
+        storage.write(key: LocalDataConstant.email, value: res.results!.user!.email);
         goToHomeScreen();
       } else {
         AppSnackbar.warning("Warning", res.message!);

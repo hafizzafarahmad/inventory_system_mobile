@@ -27,7 +27,7 @@ class BarangModel {
     status = json['status'];
     message = json['message'];
     results =
-    json['results'] != null ? Results.fromJson(json['results']) : null;
+    json['results'] != null ? new Results.fromJson(json['results']) : null;
     totalData = json['total_data'];
     offset = json['offset'];
     currentPage = json['current_page'];
@@ -37,19 +37,19 @@ class BarangModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['code'] = code;
-    data['status'] = status;
-    data['message'] = message;
-    if (results != null) {
-      data['results'] = results!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['code'] = this.code;
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.results != null) {
+      data['results'] = this.results!.toJson();
     }
-    data['total_data'] = totalData;
-    data['offset'] = offset;
-    data['current_page'] = currentPage;
-    data['last_page'] = lastPage;
-    data['next_page'] = nextPage;
-    data['prev_page'] = prevPage;
+    data['total_data'] = this.totalData;
+    data['offset'] = this.offset;
+    data['current_page'] = this.currentPage;
+    data['last_page'] = this.lastPage;
+    data['next_page'] = this.nextPage;
+    data['prev_page'] = this.prevPage;
     return data;
   }
 }
@@ -60,13 +60,13 @@ class Results {
   Results({this.item});
 
   Results.fromJson(Map<String, dynamic> json) {
-    item = json['item'] != null ? Item.fromJson(json['item']) : null;
+    item = json['item'] != null ? new Item.fromJson(json['item']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (item != null) {
-      data['item'] = item!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.item != null) {
+      data['item'] = this.item!.toJson();
     }
     return data;
   }
@@ -105,7 +105,7 @@ class Item {
     if (json['data'] != null) {
       data = <BarangData>[];
       json['data'].forEach((v) {
-        data!.add(BarangData.fromJson(v));
+        data!.add(new BarangData.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -121,21 +121,21 @@ class Item {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['current_page'] = currentPage;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['current_page'] = this.currentPage;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    data['first_page_url'] = firstPageUrl;
-    data['from'] = from;
-    data['last_page'] = lastPage;
-    data['last_page_url'] = lastPageUrl;
-    data['next_page_url'] = nextPageUrl;
-    data['path'] = path;
-    data['per_page'] = perPage;
-    data['prev_page_url'] = prevPageUrl;
-    data['to'] = to;
-    data['total'] = total;
+    data['first_page_url'] = this.firstPageUrl;
+    data['from'] = this.from;
+    data['last_page'] = this.lastPage;
+    data['last_page_url'] = this.lastPageUrl;
+    data['next_page_url'] = this.nextPageUrl;
+    data['path'] = this.path;
+    data['per_page'] = this.perPage;
+    data['prev_page_url'] = this.prevPageUrl;
+    data['to'] = this.to;
+    data['total'] = this.total;
     return data;
   }
 }
@@ -159,7 +159,9 @@ class BarangData {
   int? sizeId;
   int? vendorId;
   String? purchasePrice;
+  String? barcode;
   String? imageUrl;
+  IStock? iStock;
 
   BarangData(
       {this.id,
@@ -180,7 +182,9 @@ class BarangData {
         this.sizeId,
         this.vendorId,
         this.purchasePrice,
-        this.imageUrl});
+        this.barcode,
+        this.imageUrl,
+        this.iStock});
 
   BarangData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -201,30 +205,86 @@ class BarangData {
     sizeId = json['size_id'];
     vendorId = json['vendor_id'];
     purchasePrice = json['purchase_price'];
+    barcode = json['barcode'];
     imageUrl = json['image_url'];
+    iStock =
+    json['i_stock'] != null ? new IStock.fromJson(json['i_stock']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['item_name'] = itemName;
-    data['uom'] = uom;
-    data['price'] = price;
-    data['user_id'] = userId;
-    data['category_id'] = categoryId;
-    data['description'] = description;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    data['picture_name'] = pictureName;
-    data['disabled'] = disabled;
-    data['deleted'] = deleted;
-    data['deleted_at'] = deletedAt;
-    data['quantity'] = quantity;
-    data['color_id'] = colorId;
-    data['size_id'] = sizeId;
-    data['vendor_id'] = vendorId;
-    data['purchase_price'] = purchasePrice;
-    data['image_url'] = imageUrl;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['item_name'] = this.itemName;
+    data['uom'] = this.uom;
+    data['price'] = this.price;
+    data['user_id'] = this.userId;
+    data['category_id'] = this.categoryId;
+    data['description'] = this.description;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['picture_name'] = this.pictureName;
+    data['disabled'] = this.disabled;
+    data['deleted'] = this.deleted;
+    data['deleted_at'] = this.deletedAt;
+    data['quantity'] = this.quantity;
+    data['color_id'] = this.colorId;
+    data['size_id'] = this.sizeId;
+    data['vendor_id'] = this.vendorId;
+    data['purchase_price'] = this.purchasePrice;
+    data['barcode'] = this.barcode;
+    data['image_url'] = this.imageUrl;
+    if (this.iStock != null) {
+      data['i_stock'] = this.iStock!.toJson();
+    }
+    return data;
+  }
+}
+
+class IStock {
+  int? itemId;
+  int? ownerId;
+  String? quantity;
+  int? categoryId;
+  int? sizeId;
+  int? colorId;
+  String? uom;
+  String? barcode;
+  String? createdAt;
+
+  IStock(
+      {this.itemId,
+        this.ownerId,
+        this.quantity,
+        this.categoryId,
+        this.sizeId,
+        this.colorId,
+        this.uom,
+        this.barcode,
+        this.createdAt});
+
+  IStock.fromJson(Map<String, dynamic> json) {
+    itemId = json['item_id'];
+    ownerId = json['owner_id'];
+    quantity = json['quantity'];
+    categoryId = json['category_id'];
+    sizeId = json['size_id'];
+    colorId = json['color_id'];
+    uom = json['uom'];
+    barcode = json['barcode'];
+    createdAt = json['created_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['item_id'] = this.itemId;
+    data['owner_id'] = this.ownerId;
+    data['quantity'] = this.quantity;
+    data['category_id'] = this.categoryId;
+    data['size_id'] = this.sizeId;
+    data['color_id'] = this.colorId;
+    data['uom'] = this.uom;
+    data['barcode'] = this.barcode;
+    data['created_at'] = this.createdAt;
     return data;
   }
 }

@@ -168,7 +168,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                                         shrinkWrap: true,
                                         padding: const EdgeInsets.symmetric(horizontal: 5),
                                         addAutomaticKeepAlives: true,
-                                        itemCount: controller.listIn.length,
+                                        itemCount: controller.listOut.length,
                                         itemBuilder: (context, i){
                                           return ItemTransaksiWidget(index: i,
                                             data: controller.listOut[i],

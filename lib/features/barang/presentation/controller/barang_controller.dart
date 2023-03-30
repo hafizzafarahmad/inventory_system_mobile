@@ -3,12 +3,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventory_system/common/model/opsi_category_model.dart';
 import 'package:inventory_system/common/model/opsi_color_model.dart';
 import 'package:inventory_system/common/model/opsi_size_model.dart';
 import 'package:inventory_system/common/model/opsi_vendor_model.dart';
+import 'package:inventory_system/core/environment/local_data_constans.dart';
 import 'package:inventory_system/features/barang/data/model/barang_model.dart';
 import 'package:inventory_system/features/barang/domain/params/barang_params.dart';
 import 'package:inventory_system/features/barang/domain/repository/barang_repository.dart';
@@ -22,6 +24,8 @@ class BarangController extends GetxController {
   BarangController(
       {required this.barangRepository});
 
+  final storage = const FlutterSecureStorage();
+  String? token;
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
@@ -116,6 +120,7 @@ class BarangController extends GetxController {
         //   Navigator.pop(context);
         // }
         Get.back();
+        update();
       }
     }on NoSuchMethodError catch(e){
       print(e);
@@ -140,6 +145,7 @@ class BarangController extends GetxController {
       } else {
         // alertToast("File harus berupa image/pdf.");
       }
+      update();
     }catch(e){
       print(e);
     }
@@ -213,6 +219,7 @@ class BarangController extends GetxController {
   }
 
   onRefresh() async {
+    token = await storage.read(key: LocalDataConstant.token);
     getBarang();
   }
 
@@ -280,7 +287,7 @@ class BarangController extends GetxController {
               price: priceController.text.replaceAll('.', ''),
               quantity: quantityController.text.replaceAll('.', ''),
               desc: descController.text,
-              image: image!
+              image: image!.contains('http') ? null : image!
           )
       );
 
@@ -331,7 +338,7 @@ class BarangController extends GetxController {
     uomController.text =  selectedBarangData?.uom ?? "";
     purchasePriceController.text =  selectedBarangData?.purchasePrice ?? "";
     priceController.text =  selectedBarangData?.price ?? "";
-    quantityController.text =  selectedBarangData?.quantity ?? "";
+    quantityController.text =  selectedBarangData?.iStock?.quantity?.split(".").first ?? "";
     descController.text =  selectedBarangData?.description ?? "";
     selectedCategory = opsiCategory.firstWhereOrNull((element) => element.id == selectedBarangData!.categoryId);
     selectedSize = opsiSize.firstWhereOrNull((element) => element.id == selectedBarangData!.sizeId);

@@ -9,9 +9,9 @@ class SendBarangParams {
   final String price;
   final String quantity;
   final String desc;
-  final String image;
+  final String? image;
 
   SendBarangParams(
       {required this.itemName, required this.idCategory, required this.idSize, required this.idColor, required this.idVendor,
-        required this.uom, required this.purchasePrice, required this.price, required this.quantity, required this.desc, required this.image});
+        required this.uom, required this.purchasePrice, required this.price, required this.quantity, required this.desc, this.image});
 }

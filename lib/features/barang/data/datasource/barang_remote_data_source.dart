@@ -34,9 +34,13 @@ class BarangRemoteDataSource {
         "quantity" : params.quantity,
         "description" : params.desc,
         "vendor_id" : params.idVendor,
-        "image" :  await MultipartFile.fromFile(params.image,
-            filename: params.image.toString().split('/').last,contentType: MediaType('image', '*')),
       });
+      
+      if(params.image != null){
+        formdata.files.add(MapEntry("image", await MultipartFile.fromFile(params.image!,
+            filename: params.image.toString().split('/').last,
+            contentType: MediaType('image', "*"))));
+      }
 
       final res = await AppNetworkClient.post(path: ApiEndPoint.item,
         form: formdata,
@@ -61,14 +65,18 @@ class BarangRemoteDataSource {
         "uom" : params.uom,
         "purchase_price" : params.purchasePrice,
         "price" : params.price,
-        "quantity" : params.quantity,
+        // "quantity" : params.quantity,
         "description" : params.desc,
         "vendor_id" : params.idVendor,
-        "image" :  await MultipartFile.fromFile(params.image,
-            filename: params.image.toString().split('/').last,contentType: MediaType('image', '*')),
       });
 
-      final res = await AppNetworkClient.post(path: ApiEndPoint.item,
+      if(params.image != null){
+        formdata.files.add(MapEntry("image", await MultipartFile.fromFile(params.image!,
+            filename: params.image.toString().split('/').last,
+            contentType: MediaType('image', "*"))));
+      }
+
+      final res = await AppNetworkClient.post(path: '${ApiEndPoint.item}?method=PUT',
         form: formdata,
       );
       return BaseModel.fromJson(res.data);

@@ -112,7 +112,7 @@ class TransaksiController extends GetxController {
   goToOpenScanner(BuildContext context, String type) async {
     try {
       barcode = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.QR);
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
 
       if(type == 'in'){
         await postIn();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:inventory_system/common/model/menu_model.dart';
+import 'package:inventory_system/core/environment/local_data_constans.dart';
 import 'package:inventory_system/core/style/app_color.dart';
 
 import '../../../../core/route/route_constant.dart';
@@ -9,6 +10,7 @@ import '../../../../core/route/route_constant.dart';
 class HomeController extends GetxController {
 
   final storage = const FlutterSecureStorage();
+  String? name, email;
 
   int jmlBarang = 0;
   int jmlStokHampirHabis = 0;
@@ -23,6 +25,12 @@ class HomeController extends GetxController {
     AppColor.style5,
     AppColor.style6,
   ];
+
+  onRefresh() async {
+    name = await storage.read(key: LocalDataConstant.name);
+    email = await storage.read(key: LocalDataConstant.email);
+    update();
+  }
 
   setMenu(){
     menu.clear();
@@ -56,6 +64,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     setMenu();
+    onRefresh();
     super.onInit();
   }
 

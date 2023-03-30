@@ -132,7 +132,7 @@ class AppNetworkClient {
             controller.forceLogout();
           }
         }
-        throw res.data['messages'].toString();
+        throw res.data['message'].toString();
       }
 
       return res;
@@ -144,6 +144,7 @@ class AppNetworkClient {
           controller.forceLogout();
         }
       }
+      debugPrint(e.toString());
       _errorCatch(e);
       try {
         throw "[${e.response!.statusCode}] Server Error, try again later";
@@ -195,7 +196,7 @@ class AppNetworkClient {
             controller.forceLogout();
           }
         }
-        throw res.data['messages'].toString();
+        throw res.data['message'].toString();
       }
 
       return res;
@@ -254,7 +255,7 @@ class AppNetworkClient {
       // debugPrint("Data Response " + res.data.toString());
 
       if(res.data["code"] != "200"){
-        throw res.data['messages'].toString();
+        throw res.data['message'].toString();
       }
 
       return res;
